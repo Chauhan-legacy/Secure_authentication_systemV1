@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up — Community Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c7cff;
+            --primary-dark: #5865f2;
+            --text-dark: #3b4254;
+            --text-muted: #b0b7c3;
+            --border-line: #cdd4e7;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6776ff 0%, #8693ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background decorative circles */
+        .bg-circle-1 {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            top: 8%;
+            right: -80px;
+            pointer-events: none;
+        }
+        .bg-circle-2 {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            bottom: 4%;
+            left: 5%;
+            pointer-events: none;
+        }
+
+        /* Browser Window Card */
+        .window-card {
+            width: 100%;
+            max-width: 780px;
+            min-height: 520px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 30px 60px rgba(34, 43, 112, 0.28);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Browser Bar */
+        .window-bar {
+            height: 44px;
+            background: #f4f7fb;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            position: relative;
+            z-index: 2;
+        }
+        .window-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .window-dots span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+        .address-bar {
+            width: 60%;
+            height: 24px;
+            background: #ffffff;
+            border-radius: 5px;
+            margin: 0 auto;
+        }
+
+        /* Inner decorative circles inside the white card */
+        .card-circle-right {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: #eff2fe;
+            top: 25px;
+            right: -135px;
+            pointer-events: none;
+        }
+        .card-circle-left-lg {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: #eff2fe;
+            bottom: -45px;
+            left: -100px;
+            pointer-events: none;
+        }
+        .card-circle-left-sm {
+            position: absolute;
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            background: #e4e9fd;
+            bottom: 135px;
+            left: -18px;
+            pointer-events: none;
+        }
+
+        /* Content Container */
+        .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        .form-wrapper {
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #6372ff;
+            font-size: 1.65rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.65rem;
+        }
+
+        /* Google Button */
+        .google-btn {
+            width: 100%;
+            height: 44px;
+            background: #ffffff;
+            border: 1px solid #f1f3f9;
+            border-radius: 999px;
+            box-shadow: 0 8px 20px rgba(108, 124, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            color: #8c98e8;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .google-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(108, 124, 255, 0.16);
+        }
+        .google-icon {
+            position: absolute;
+            left: 16px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #b0b7c3;
+            font-family: Arial, sans-serif;
+        }
+
+        .divider {
+            margin: 1.35rem 0;
+            color: #c5ccd9;
+            font-size: 0.78rem;
+        }
+
+        /* Minimalist Bottom-Line Inputs */
+        .field {
+            text-align: left;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+        .field label {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+        .field input {
+            width: 100%;
+            border: none;
+            border-bottom: 1.5px solid var(--border-line);
+            padding: 0.4rem 1.8rem 0.45rem 0;
+            font-size: 0.86rem;
+            color: var(--text-dark);
+            background: transparent;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .field input:focus {
+            border-bottom-color: var(--primary);
+        }
+
+        /* Validation Checkmark Badge */
+        .check-badge {
+            position: absolute;
+            right: 2px;
+            bottom: 8px;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: #a5b1ff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.62rem;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.2s ease;
+        }
+        .field input:valid ~ .check-badge {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Gradient Pill Submit Button */
+        .submit-btn {
+            width: 100%;
+            height: 44px;
+            margin-top: 0.65rem;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #98a4ff 0%, #6371ff 100%);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(99, 113, 255, 0.28);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(99, 113, 255, 0.36);
+        }
+
+        /* Switch Link Footer */
+        .switch-text {
+            margin-top: 1.25rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .switch-text a {
+            color: #6372ff;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            margin-left: 3px;
+        }
+        .switch-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Alert Feedback */
+        .status-msg {
+            font-size: 0.76rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            display: none;
+        }
+        .status-msg.error {
+            background: #fff1f2;
+            color: #e11d48;
+        }
+        .status-msg.success {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        /* Logged-in Account View */
+        .profile-box {
+            text-align: left;
+            background: #f8faff;
+            border: 1px solid #e5eafc;
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.45rem 0;
+            font-size: 0.82rem;
+            border-bottom: 1px solid #edf1fd;
+        }
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+        .profile-item span:first-child {
+            color: var(--text-muted);
+        }
+        .profile-item span:last-child {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Outer Background Circles -->
+    <div class="bg-circle-1"></div>
+    <div class="bg-circle-2"></div>
+
+    <!-- Browser Frame Card -->
+    <div class="window-card">
+        <div class="window-bar">
+            <div class="window-dots">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="address-bar"></div>
+        </div>
+
+        <!-- Soft Decorative Circles Inside Card -->
+        <div class="card-circle-right"></div>
+        <div class="card-circle-left-lg"></div>
+        <div class="card-circle-left-sm"></div>
+
+        <div class="card-body">
+            <!-- Authentication View -->
+            <div class="form-wrapper" id="auth-section">
+                <h1 id="form-title">Sign up</h1>
+                <p class="subtitle" id="form-subtitle">Join the community today!</p>
+
+                <button type="button" class="google-btn" onclick="googleNotice()">
+                    <span class="google-icon">G</span>
+                    <span>Use Google account</span>
+                </button>
+
+                <div class="divider">or</div>
+
+                <div id="status-msg" class="status-msg"></div>
+
+                <!-- Sign Up Form -->
+                <form id="signup-form" autocomplete="off" onsubmit="handleRegister(event)">
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" id="reg_user" required minlength="3" autocomplete="off">
+                        <span class="check-badge">&#10003;</span>
+                    </div>
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" id="reg_email" required autocomplete="off">
+                        <span class="check-badge">&#10003;</span>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" id="reg_pass" required minlength="8" autocomplete="new-password">
+                        <span class="check-badge">&#10003;</span>
+                    </div>
+                    <button type="submit" class="submit-btn">Sign up</button>
+                </form>
+
+                <!-- Sign In Form -->
+                <form id="signin-form" class="hidden" autocomplete="off" onsubmit="handleLogin(event)">
+                    <div class="field">
+                        <label>Username or Email</label>
+                        <input type="text" id="log_user" required autocomplete="off">
+                        <span class="check-badge">&#10003;</span>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" id="log_pass" required autocomplete="new-password">
+                        <span class="check-badge">&#10003;</span>
+                    </div>
+                    <button type="submit" class="submit-btn">Sign in</button>
+                </form>
+
+                <div class="switch-text" id="switch-container">
+                    Already a member? <a onclick="toggleMode('signin')">Sign in</a>
+                </div>
+            </div>
+
+            <!-- Logged-in Member View -->
+            <div class="form-wrapper hidden" id="member-section">
+                <h1>Welcome!</h1>
+                <p class="subtitle">Your JWT session is active and verified.</p>
+
+                <div class="profile-box">
+                    <div class="profile-item">
+                        <span>Member ID</span>
+                        <span id="mem-id">-</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Username</span>
+                        <span id="mem-user">-</span>
+                    </div>
+                    <div class="profile-item">
+                        <span>Email</span>
+                        <span id="mem-email">-</span>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="handleLogout()">Sign out</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let jwtToken = "";
+
+        function showStatus(text, type) {
+            const el = document.getElementById("status-msg");
+            el.textContent = text;
+            el.className = "status-msg " + type;
+            el.style.display = "block";
+        }
+
+        function googleNotice() {
+            showStatus("Please use email & password below for local JWT authentication.", "success");
+        }
+
+        function toggleMode(mode) {
+            document.getElementById("status-msg").style.display = "none";
+            const signupForm = document.getElementById("signup-form");
+            const signinForm = document.getElementById("signin-form");
+            const title = document.getElementById("form-title");
+            const subtitle = document.getElementById("form-subtitle");
+            const switchBox = document.getElementById("switch-container");
+
+            if (mode === "signin") {
+                signupForm.classList.add("hidden");
+                signinForm.classList.remove("hidden");
+                title.textContent = "Sign in";
+                subtitle.textContent = "Welcome back to the community!";
+                switchBox.innerHTML = 'New here? <a onclick="toggleMode(\'signup\')">Sign up</a>';
+            } else {
+                signinForm.classList.add("hidden");
+                signupForm.classList.remove("hidden");
+                title.textContent = "Sign up";
+                subtitle.textContent = "Join the community today!";
+                switchBox.innerHTML = 'Already a member? <a onclick="toggleMode(\'signin\')">Sign in</a>';
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const res = await fetch("/register", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    username: document.getElementById("reg_user").value,
+                    email: document.getElementById("reg_email").value,
+                    password: document.getElementById("reg_pass").value
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                document.getElementById("signup-form").reset();
+                toggleMode("signin");
+                showStatus("Account created! Please sign in.", "success");
+            } else {
+                showStatus(data.error || "Sign up failed.", "error");
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const res = await fetch("/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    username: document.getElementById("log_user").value,
+                    password: document.getElementById("log_pass").value
+                })
+            });
+            const data = await res.json();
+            if (res.ok && data.token) {
+                jwtToken = data.token;
+                await loadMemberProfile();
+            } else {
+                showStatus(data.error || "Invalid credentials.", "error");
+            }
+        }
+
+        async function loadMemberProfile() {
+            const res = await fetch("/profile", {
+                headers: {"Authorization": "Bearer " + jwtToken}
+            });
+            if (res.ok) {
+                const data = await res.json();
+                document.getElementById("mem-id").textContent = "#" + data.profile.id;
+                document.getElementById("mem-user").textContent = data.profile.username;
+                document.getElementById("mem-email").textContent = data.profile.email;
+                document.getElementById("auth-section").classList.add("hidden");
+                document.getElementById("member-section").classList.remove("hidden");
+            }
+        }
+
+        async function handleLogout() {
+            await fetch("/logout", {
+                method: "POST",
+                headers: {"Authorization": "Bearer " + jwtToken}
+            });
+            jwtToken = "";
+            document.getElementById("signin-form").reset();
+            document.getElementById("member-section").classList.add("hidden");
+            document.getElementById("auth-section").classList.remove("hidden");
+            toggleMode("signin");
+            showStatus("Signed out successfully.", "success");
+        }
+    </script>
+</body>
+</html>
